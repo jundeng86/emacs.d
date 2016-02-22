@@ -26,6 +26,7 @@
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-compat)
 (require 'init-utils)
@@ -52,7 +53,7 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
-(require 'init-osx-keys)
+;;(require 'init-osx-keys)
 (require 'init-gui-frames)
 (require 'init-dired)
 (require 'init-isearch)
@@ -85,19 +86,20 @@
 (require 'init-markdown)
 (require 'init-csv)
 (require 'init-erlang)
-(require 'init-javascript)
-(require 'init-php)
+;;(require 'init-javascript)
+;;(require 'init-php)
 (require 'init-org)
 (require 'init-nxml)
-(require 'init-html)
-(require 'init-css)
+;;(require 'init-html)
+;;(require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
 (require 'init-haskell)
 (require 'init-elm)
-(require 'init-ruby-mode)
-(require 'init-rails)
-(require 'init-sql)
+(require 'init-matlab)
+;;(require 'init-ruby-mode)
+;;(require 'init-rails)
+;;(require 'init-sql)
 
 (require 'init-paredit)
 (require 'init-lisp)
@@ -107,30 +109,33 @@
   (require 'init-clojure-cider))
 (require 'init-common-lisp)
 
-(when *spell-check-support-enabled*
-  (require 'init-spelling))
+(require 'init-latex)
 
+(require 'init-spelling)
 (require 'init-misc)
 
 (require 'init-dash)
 (require 'init-ledger)
+
+
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
 (require-package 'lua-mode)
-(require-package 'htmlize)
+;;(require-package 'htmlize)
 (require-package 'dsvn)
 (when *is-a-mac*
   (require-package 'osx-location))
 (require-package 'regex-tool)
 
+
+
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-
+;;(require 'server)
+(server-start)
+(server-mode 1)
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface

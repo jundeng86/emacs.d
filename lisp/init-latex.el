@@ -129,5 +129,7 @@
         )
     )
   )
+;; filling
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 
 (provide 'init-latex)

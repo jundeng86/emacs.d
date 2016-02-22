@@ -3,7 +3,6 @@
 ;;----------------------------------------------------------------------------
 (winner-mode 1)
 
-
 
 ;; Make "C-x o" prompt for a target window when there are more than 2
 (require-package 'switch-window)
@@ -12,6 +11,9 @@
 (setq-default switch-window-timeout nil)
 (global-set-key (kbd "C-x o") 'switch-window)
 
+;; alt+1,2, to switch windows
+(require-package 'window-numbering)
+(window-numbering-mode 1)
 
 ;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
@@ -27,8 +29,8 @@
         (unless arg
           (select-window target-window))))))
 
-(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
+;;(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
+;;(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
 
 (defun sanityinc/toggle-delete-other-windows ()
   "Delete other windows in frame if any, or restore previous window config."
@@ -38,7 +40,7 @@
       (winner-undo)
     (delete-other-windows)))
 
-(global-set-key "\C-x1" 'sanityinc/toggle-delete-other-windows)
+;;(global-set-key "\C-x1" 'sanityinc/toggle-delete-other-windows)
 
 ;;----------------------------------------------------------------------------
 ;; Rearrange split windows
@@ -73,6 +75,22 @@ Call a second time to restore the original window configuration."
 
 (global-set-key (kbd "<f7>") 'sanityinc/split-window)
 
+
+(defun swap-windows ()
+  "If you have 2 windows, it swaps them."
+  (interactive)
+  (cond ((not (= (count-windows) 2)) (message "You need exactly 2 windows to do this."))
+        (t
+         (let* ((w1 (first (window-list)))
+                (w2 (second (window-list)))
+                (b1 (window-buffer w1))
+                (b2 (window-buffer w2))
+                (s1 (window-start w1))
+                (s2 (window-start w2)))
+           (set-window-buffer w1 b2)
+           (set-window-buffer w2 b1)
+           (set-window-start w1 s2)
+           (set-window-start w2 s1)))))
 
 
 (defun sanityinc/toggle-current-window-dedication ()

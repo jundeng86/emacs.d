@@ -25,6 +25,9 @@
  set-mark-command-repeat-pop t
  tooltip-delay 1.5
  truncate-lines nil
+ tab-width 4
+ fill-column 80
+ auto-fill-function 'do-auto-fill
  truncate-partial-width-windows nil)
 
 (global-auto-revert-mode)
@@ -32,6 +35,22 @@
       auto-revert-verbose nil)
 
 (transient-mark-mode t)
+
+;; show line number and relative number
+(require-package 'linum-relative)
+(global-linum-mode t)
+(setq linum-format "%3d")
+
+(global-set-key (kbd "M-g") 'goto-line)
+
+;; time-stamp
+(require 'time-stamp-settings)
+
+;;
+(defun kill-to-end () "Kills text from the cursor postion to the end of the buffer. This command adds the killed text to the kill-ring" (interactive) (save-excursion (let ((beg (point)) (end (point-max))) (kill-region beg end))))
+
+;; keybinding
+(global-set-key (kbd "s-k") 'kill-to-end);;super+k to kill the rest from the cursor point
 
 
 
@@ -188,7 +207,7 @@
 ;;----------------------------------------------------------------------------
 (require-package 'move-dup)
 (global-set-key [M-up] 'md/move-lines-up)
-(global-set-key [M-down] 'md/move-lines-down)
+(global-set-key [M-down] 'md/move-lines-dow)
 (global-set-key [M-S-up] 'md/move-lines-up)
 (global-set-key [M-S-down] 'md/move-lines-down)
 
@@ -295,6 +314,11 @@ With arg N, insert N newlines."
 (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
+
+;; highlight indentation
+(require-package 'indent-guide)
+(indent-guide-global-mode)
+(setq indent-guide-recursive t)
 
 
 (provide 'init-editing-utils)

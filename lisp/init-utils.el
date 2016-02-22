@@ -86,5 +86,13 @@
         (error "Cannot open tramp file")
       (browse-url (concat "file://" file-name)))))
 
+(defun refresh-file ()
+  "Refresh the buffer from the disk."
+  (interactive)
+  (revert-buffer t t)
+  )
+
+(global-set-key [f5] 'refresh-file)
+
 
 (provide 'init-utils)

@@ -15,6 +15,8 @@
 (sanityinc/add-subdirs-to-load-path
  (expand-file-name "site-lisp/" user-emacs-directory))
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+
 ;;; Utilities for grabbing upstream libs
 
 (defun site-lisp-dir-for (name)
@@ -43,7 +45,7 @@ source file under ~/.emacs.d/site-lisp/name/"
   (let ((f (locate-library (symbol-name name))))
     (and f (string-prefix-p (file-name-as-directory (site-lisp-dir-for name)) f))))
 
-
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; Download these upstream libs
 

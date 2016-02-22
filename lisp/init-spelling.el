@@ -1,6 +1,6 @@
-(require 'ispell)
+;;(require 'ispell)
 
-(when (executable-find ispell-program-name)
-  (require 'init-flyspell))
+(require 'flyspell)
+(require 'init-flyspell)
 
 (provide 'init-spelling)
