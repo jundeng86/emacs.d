@@ -29,8 +29,8 @@
         (unless arg
           (select-window target-window))))))
 
-;;(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
-;;(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
+(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
+(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
 
 (defun sanityinc/toggle-delete-other-windows ()
   "Delete other windows in frame if any, or restore previous window config."
@@ -40,7 +40,7 @@
       (winner-undo)
     (delete-other-windows)))
 
-;;(global-set-key "\C-x1" 'sanityinc/toggle-delete-other-windows)
+(global-set-key "\C-x1" 'sanityinc/toggle-delete-other-windows)
 
 ;;----------------------------------------------------------------------------
 ;; Rearrange split windows

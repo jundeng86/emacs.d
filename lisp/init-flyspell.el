@@ -23,7 +23,6 @@
                   lua-mode-hook
                   matlab-mode-hook
                   org-mode-hook
-                  perl-model-hook
                   javascript-mode-hook))
     (add-hook hook 'flyspell-prog-mode)))
 
@@ -54,7 +53,7 @@
 (global-set-key (kbd "<f8>")   'fd-switch-dictionary)
 
 (require-package 'flyspell-popup)
-(define-key flyspell-mode-map (kbd "C-;") #'flyspell-popup-correct)
+(define-key flyspell-mode-map (kbd "C-'") #'flyspell-popup-correct)
 
 (eval-after-load "flyspell"
   '(progn

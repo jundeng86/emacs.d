@@ -80,11 +80,21 @@
 
 (require-package 'undo-tree)
 (global-undo-tree-mode)
+(setq undo-limit 600000)
+(setq undo-strong-limit 900000)
 (diminish 'undo-tree-mode)
 
 
 (require-package 'highlight-symbol)
-(dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
+(dolist (hook '(prog-mode-hook
+                html-mode-hook
+                css-mode-hook
+                matlab-mode-hook
+                LaTex-mode-hook
+                python-mode-hook
+                shell-mode-hook
+                org-mode-hook
+                ))
   (add-hook hook 'highlight-symbol-mode)
   (add-hook hook 'highlight-symbol-nav-mode))
 (add-hook 'org-mode-hook 'highlight-symbol-nav-mode)
