@@ -73,9 +73,9 @@
     (diminish 'subword-mode)))
 
 
-
-(when (fboundp 'global-prettify-symbols-mode)
-  (global-prettify-symbols-mode))
+;; disable this function by Jun
+;; (when (fboundp 'global-prettify-symbols-mode)
+;;   (global-prettify-symbols-mode))
 
 
 (require-package 'undo-tree)

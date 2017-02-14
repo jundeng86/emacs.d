@@ -33,12 +33,6 @@
 (add-hook 'TeX-mode-hook
           (lambda () (TeX-fold-mode 1))); Automatically activate TeX-fold-mode.
 
-(setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")));change pdf viwer as Evince
-(setq TeX-view-program-selection '((output-pdf "Evince")))
-
-                                        ; multifile documents ; ; ; ; ; ;
-                                        ;(setq-default TeX-master "master") ; All master files called "master". ; ; ; ; ; ;
-
 ;;Inserting and wrapping single quotes
 (defun TeX-insert-single-quote (arg)
   (interactive "p")
@@ -57,19 +51,31 @@
           '(lambda ()
              (local-set-key "'" 'TeX-insert-single-quote)))
 
-;; Forward/inverse search with evince using D-bus.
 
-(custom-set-variables
- '(LaTeX-command "latex -synctex=1"))
+;; Use Skim as viewer, enable source <-> PDF sync
+;; make latexmk available via C-c C-c
+;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+(add-hook 'LaTeX-mode-hook (lambda ()
+                             (push
+                              '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                                :help "Run latexmk on file")
+                              TeX-command-list)))
+(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
 
-(require 'auctex-evince-sync)
+;; use Skim as default pdf viewer
+;; Skim's displayline is used for forward search (from .tex to .pdf)
+;; option -b highlights the current line; option -g opens Skim in the background
+(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+(setq TeX-view-program-list
+      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
 
 ;; ============ Latexmk setup ==============
-(require-package 'auctex-latexmk)
-(require 'auctex-latexmk)
-(auctex-latexmk-setup)
+;;(require-package 'auctex-latexmk)
+;;(require 'auctex-latexmk)
+;;(auctex-latexmk-setup)
 
-(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+;;(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
 
 ;; RefTex
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
