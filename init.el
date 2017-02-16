@@ -96,7 +96,7 @@
 (require 'init-python-mode)
 (require 'init-haskell)
 (require 'init-elm)
-(require 'init-matlab)
+;;(require 'init-matlab)
 ;;(require 'init-ruby-mode)
 ;;(require 'init-rails)
 ;;(require 'init-sql)
