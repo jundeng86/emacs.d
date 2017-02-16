@@ -36,6 +36,20 @@
 (setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")));change pdf viwer as Evince
 (setq TeX-view-program-selection '((output-pdf "Evince")))
 
+(when *is-a-mac*
+  (after-load 'auctex
+              (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))))
+              
+;; use Skim as default pdf viewer
+;; Skim's displayline is used for forward search (from .tex to .pdf)
+;; option -b highlights the current line; option -g opens Skim in the background
+(when *is-a-mac*
+  (after-load 'auctex
+              (setq TeX-view-program-list'(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))))
+
+;; use Skim as default pdf viewer
+;; Skim's displayline is used for forward search (from .tex to .pdf)
+;; option -b highlights the current line; option -g opens Skim in the background
                                         ; multifile documents ; ; ; ; ; ;
                                         ;(setq-default TeX-master "master") ; All master files called "master". ; ; ; ; ; ;
 
