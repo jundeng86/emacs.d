@@ -9,6 +9,16 @@
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
+;; Org
+(add-hook 'org-mode-hook
+          (lambda ()
+            ;; Enable fill column indicator
+            ;;(fci-mode t)
+            ;; Set fill column to 79
+            (setq fill-column 80)
+            ;; Enable automatic line wrapping at fill column
+            (auto-fill-mode t)))
+
 ;; Various preferences
 (setq org-log-done t
       org-completion-use-ido t

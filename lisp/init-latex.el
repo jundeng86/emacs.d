@@ -82,6 +82,7 @@
 (require-package 'auctex-latexmk)
 (require 'auctex-latexmk)
 (auctex-latexmk-setup)
+(setq auctex-latexmk-inherit-TeX-PDF-mode t)
 
 (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
 
