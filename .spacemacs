@@ -14,7 +14,7 @@ values."
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `utern binary not foundnused'
    ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
-   ;; not listed in variable `dotspacemacs-configuration-layers'), `all' will
+   ;; not listed in variable `dotspacemacs-configurahttps://github.com/jundengdeng/emacs.d.gittion-layers'), `all' will
    ;; lazy install any layer that support lazy installation even the layers
    ;; listed in `dotspacemacs-configuration-layers'. `nil' disable the lazy
    ;; installation feature and you have to explicitly list a layer in the
@@ -354,11 +354,21 @@ you should place your code here."
     (global-set-key (kbd "C-c p") 'md/duplicate-down)
     (global-set-key (kbd "C-c P") 'md/duplicate-up)
     )
+
   (use-package highlight-symbol
     :init
     (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
     (add-hook 'text-mode-hook 'highlight-symbol-nav-mode)
     (global-set-key (kbd "M-'") 'highlight-symbol-query-replace))
+
+  (defun refresh-file ()
+    "Refresh the buffer from the disk."
+    (interactive)
+    (revert-buffer t t)
+    )
+
+  (global-set-key [f5] 'refresh-file)
+
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
