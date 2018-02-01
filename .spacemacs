@@ -369,6 +369,7 @@ you should place your code here."
 
   (global-set-key [f5] 'refresh-file)
 
+  (org-defkey org-mode-map [(meta return)] 'org-meta-return)
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
