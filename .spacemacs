@@ -397,7 +397,21 @@ you should place your code here."
        ;; fall-through case
        (t (org-return-indent)))))
 
-  ;;(org-defkey org-mode-map [(meta return)] 'org-meta-return)
+
+  ;;----------------------------------------------------------------------------
+  ;; When splitting window, show (other-buffer) in the new window
+  ;;----------------------------------------------------------------------------
+  (eval-when-compile (require 'cl))
+  (defun split-window-func-with-other-buffer (split-function)
+    (lexical-let ((s-f split-function))
+      (lambda ()
+        (interactive)
+        (funcall s-f)
+        (set-window-buffer (next-window) (other-buffer)))))
+
+  (global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
+  (global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
+
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
