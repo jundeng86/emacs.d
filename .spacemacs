@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     shell-scripts
      pdf-tools
      csv
      javascript
@@ -48,7 +49,9 @@ values."
      org
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-term-shell "/usr/bin/fish"
+            )
      spell-checking
      syntax-checking
      version-control
@@ -61,6 +64,8 @@ values."
             latex-build-command "LatexMk"
             )
      bibtex
+     (ranger :variables
+             ranger-show-preview t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -320,6 +325,11 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+ ;; (setq configuration-layer--elpa-archives
+ ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+ ;;         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+ ;;         ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
   )
 
 (defun dotspacemacs/user-config ()
@@ -372,6 +382,7 @@ you should place your code here."
 
   (global-set-key [f5] 'refresh-file)
 
+
   (defun org-meta-return* (&optional ignore)
     "context respecting org-insert"
     (interactive "P")
@@ -396,6 +407,39 @@ you should place your code here."
             (org-meta-return*))))
        ;; fall-through case
        (t (org-return-indent)))))
+
+  (eval-after-load "reftex"
+    '(progn
+       (define-key reftex-mode-map (kbd "C-c c")
+         (lambda ()
+           (interactive)
+           (let ((reftex-refstyle "\\Cref"))
+             (reftex-reference " "))))))
+
+  ;; Enable bibtex to generate the custimized key
+  ;; nameYY-ABC
+  (setq bibtex-align-at-equal-sign t
+        bibtex-autokey-name-case-convert-function (quote capitalize)
+        bibtex-autokey-name-year-separator ""
+        bibtex-autokey-year-title-separator "-"
+        bibtex-autokey-year-length 2
+        bibtex-autokey-titlewords-stretch 2
+        bibtex-autokey-titlewords 3
+        bibtex-autokey-titleword-ignore '("")
+        bibtex-autokey-titleword-case-convert-function (quote capitalize)
+        bibtex-autokey-titleword-separator ""
+        bibtex-autokey-titleword-length 1
+        )
+  ;; flyspell switch dictionary between british and american
+  (defun fd-switch-dictionary()
+    (interactive)
+    (let* ((dic ispell-current-dictionary)
+           (change (if (string= dic "american") "british" "american")))
+      (ispell-change-dictionary change)
+      (message "Dictionary switched from %s to %s" dic change)
+      ))
+
+  (global-set-key (kbd "<f8>")   'fd-switch-dictionary)
 
 
   ;;----------------------------------------------------------------------------
@@ -426,8 +470,7 @@ you should place your code here."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    ()
-  )))
+    (ranger powerline pdf-tools ivy org-plus-contrib multiple-cursors insert-shebang hydra projectile helm-bibtex flyspell-correct fish-mode company-shell yapfify xterm-color ws-butler winum whole-line-or-region which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox origami orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text move-dup monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-symbol highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode csv-mode company-tern company-statistics company-auctex company-anaconda column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
