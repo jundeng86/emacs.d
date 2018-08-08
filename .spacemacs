@@ -8,11 +8,11 @@ You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
+   ;; `+distribution'. For now available distributions are `spvisual studio code  acemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
-   ;; Lazy installation of layers (i.e. layers are installed only when a file
-   ;; with a supported type is opened). Possible values are `all', `utern binary not foundnused'
+   ;; Lazy instaDroid Sans Monollation of layers (i.e. layers are installed only when a file
+   ;; with a supported Droid Sans Monotype is opened). Possible values are `all', `utern binary not foundnused'
    ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
    ;; not listed in variable `dotspacemacs-cVPN I've already asked the IT guy, I just sent a mail again. He might call you tomorrow morning...onfigurahttps://github.com/jundengdeng/emacs.d.gittion-layers'), `all' will
    ;; lazy install any layer that support lazy installation even the layers
@@ -72,6 +72,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      highlight-indent-guides
                                       monokai-theme
                                       whole-line-or-region
                                       move-dup
@@ -341,6 +342,12 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; highlight indent
+
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-character ?\|)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+
   ;; add a header
 
   (beacon-mode t)
@@ -349,7 +356,7 @@ you should place your code here."
     :ensure t
     :bind (:map dired-mode-map
                 ("/" . dired-narrow)))
-  ;; colorful dired 
+  ;; colorful dired
   (diredfl-global-mode t)
 
   (setq dired-listing-switches "-alk")
@@ -370,9 +377,12 @@ you should place your code here."
   (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
 
   (exec-path-from-shell-copy-env "PYTHONPATH")
-	(setq python-shell-virtualenv-root "/home/jdeng/anaconda3/")
-	(setq python-shell-interpreter "/home/jdeng/anaconda3/bin/ipython")
-	
+  (setq python-shell-virtualenv-root "/home/jdeng/anaconda3/")
+  (setq python-shell-interpreter "/home/jdeng/anaconda3/bin/ipython")
+
+  (eval-after-load "company"
+    '(add-to-list 'company-backends 'company-anaconda))
+
   (use-package org
     :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil)))
 
@@ -496,9 +506,9 @@ you should place your code here."
  '(compilation-message-face (quote default))
  '(custom-safe-themes
    (quote
-    ("c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "53f97243218e8be82ba035ae34c024fd2d2e4de29dc6923e026d5580c77ff702" default)))
+    ("aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" "c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "53f97243218e8be82ba035ae34c024fd2d2e4de29dc6923e026d5580c77ff702" default)))
  '(evil-want-Y-yank-to-eol nil)
- '(fci-rule-color "#3C3D37")
+ '(fci-rule-color "#3C3D37" t)
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-tail-colors
    (quote
@@ -513,7 +523,7 @@ you should place your code here."
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (swiper-helm dired-rainbow diredfl dired-narrow beacon seq ranger powerline pdf-tools ivy org-plus-contrib multiple-cursors insert-shebang hydra projectile helm-bibtex flyspell-correct fish-mode company-shell yapfify xterm-color ws-butler winum whole-line-or-region which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox origami orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text move-dup monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-symbol highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode csv-mode company-tern company-statistics company-auctex company-anaconda column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (key-chord tablist alert log4e gntp markdown-mode skewer-mode simple-httpd json-snatcher json-reformat js2-mode parent-mode request parsebib gitignore-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck pkg-info epl flx magit magit-popup git-commit ghub with-editor smartparens iedit anzu evil goto-chg highlight dash-functional tern company bind-map bind-key biblio biblio-core yasnippet packed anaconda-mode pythonic helm avy helm-core async auto-complete popup f s dash highlight-indent-guides dracula-theme jedi jedi-core python-environment epc ctable concurrent deferred dired-hacks-utils swiper-helm dired-rainbow diredfl dired-narrow beacon seq ranger powerline pdf-tools ivy org-plus-contrib multiple-cursors insert-shebang hydra projectile helm-bibtex flyspell-correct fish-mode company-shell yapfify xterm-color ws-butler winum whole-line-or-region which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox origami orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text move-dup monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-symbol highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode csv-mode company-tern company-statistics company-auctex company-anaconda column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
