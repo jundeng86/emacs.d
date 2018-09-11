@@ -342,6 +342,9 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; by default vertically split window
+  (setq split-width-threshold 0)
+  (setq split-height-threshold nil)
   ;; highlight indent
 
   (setq highlight-indent-guides-method 'character)
@@ -352,10 +355,10 @@ you should place your code here."
 
   (beacon-mode t)
 
-  (use-package dired-narrow
-    :ensure t
-    :bind (:map dired-mode-map
-                ("/" . dired-narrow)))
+ ;; (use-package dired-narrow
+ ;;   :ensure t
+ ;;   :bind (:map dired-mode-map
+ ;;               ("/" . dired-narrow)))
   ;; colorful dired
   (diredfl-global-mode t)
 
@@ -385,6 +388,52 @@ you should place your code here."
 
   (use-package org
     :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil)))
+
+
+(use-package org-table
+  :defer t
+  :config
+  (progn
+;;;; Table Field Marking
+    (defun org-table-mark-field ()
+      "Mark the current table field."
+      (interactive)
+      ;; Do not try to jump to the beginning of field if the point is already there
+      (when (not (looking-back "|[[:blank:]]?"))
+        (org-table-beginning-of-field 1))
+      (set-mark-command nil)
+      (org-table-end-of-field 1))
+
+    (defhydra hydra-org-table-mark-field
+      (:body-pre (org-table-mark-field)
+       :color red
+       :hint nil)
+      "
+   ^^      ^🠙^     ^^
+   ^^      _p_     ^^
+🠘 _b_  selection  _f_ 🠚          | Org table mark ▯field▮ |
+   ^^      _n_     ^^
+   ^^      ^🠛^     ^^
+"
+      ("x" exchange-point-and-mark "exchange point/mark")
+      ("f" (lambda (arg)
+             (interactive "p")
+             (when (eq 1 arg)
+               (setq arg 2))
+             (org-table-end-of-field arg)))
+      ("b" (lambda (arg)
+             (interactive "p")
+             (when (eq 1 arg)
+               (setq arg 2))
+             (org-table-beginning-of-field arg)))
+      ("n" next-line)
+      ("p" previous-line)
+      ("q" nil "cancel" :color blue))
+
+    (bind-keys
+     :map org-mode-map
+     :filter (org-at-table-p)
+     ("S-SPC" . hydra-org-table-mark-field/body))))
 
   (use-package whole-line-or-region
     :init
