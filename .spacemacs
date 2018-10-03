@@ -79,6 +79,7 @@ values."
                                       highlight-symbol
                                       beacon
                                       diredfl
+                                      eterm-256color
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -376,6 +377,13 @@ you should place your code here."
   (global-set-key (kbd "s-z") 'undo)
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'term-mode-hook 'toggle-truncate-lines)
+  ;; add eterm-256color, follow the site to be prepared: https://github.com/dieggsy/eterm-256color
+
+  (use-package eterm-256color
+    :ensure t)
+
+  (add-hook 'term-mode-hook #'eterm-256color-mode)
+
   ;; disable linum-mode when using pdf-tool
   (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
 
@@ -528,8 +536,7 @@ you should place your code here."
       ))
 
   (global-set-key (kbd "<f8>")   'fd-switch-dictionary)
-
-
+  
   ;;----------------------------------------------------------------------------
   ;; When splitting window, show (other-buffer) in the new window
   ;;----------------------------------------------------------------------------
@@ -543,6 +550,11 @@ you should place your code here."
 
   (global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
   (global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
+
+  ;;(setq term-default-bg-color "#211E1E")
+  ;;(setq term-default-fg-color "#FFFFF")
+
+
 
   )
 ;; Do not write anything past this comment. This is where Emacs will
@@ -574,7 +586,7 @@ you should place your code here."
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (gruvbox-theme key-chord tablist alert log4e gntp markdown-mode skewer-mode simple-httpd json-snatcher json-reformat js2-mode parent-mode request parsebib gitignore-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck pkg-info epl flx magit magit-popup git-commit ghub with-editor smartparens iedit anzu evil goto-chg highlight dash-functional tern company bind-map bind-key biblio biblio-core yasnippet packed anaconda-mode pythonic helm avy helm-core async auto-complete popup f s dash highlight-indent-guides dracula-theme jedi jedi-core python-environment epc ctable concurrent deferred dired-hacks-utils swiper-helm dired-rainbow diredfl dired-narrow beacon seq ranger powerline pdf-tools ivy org-plus-contrib multiple-cursors insert-shebang hydra projectile helm-bibtex flyspell-correct fish-mode company-shell yapfify xterm-color ws-butler winum whole-line-or-region which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox origami orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text move-dup monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-symbol highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode csv-mode company-tern company-statistics company-auctex company-anaconda column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (eterm-256color gruvbox-theme key-chord tablist alert log4e gntp markdown-mode skewer-mode simple-httpd json-snatcher json-reformat js2-mode parent-mode request parsebib gitignore-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck pkg-info epl flx magit magit-popup git-commit ghub with-editor smartparens iedit anzu evil goto-chg highlight dash-functional tern company bind-map bind-key biblio biblio-core yasnippet packed anaconda-mode pythonic helm avy helm-core async auto-complete popup f s dash highlight-indent-guides dracula-theme jedi jedi-core python-environment epc ctable concurrent deferred dired-hacks-utils swiper-helm dired-rainbow diredfl dired-narrow beacon seq ranger powerline pdf-tools ivy org-plus-contrib multiple-cursors insert-shebang hydra projectile helm-bibtex flyspell-correct fish-mode company-shell yapfify xterm-color ws-butler winum whole-line-or-region which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox origami orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text move-dup monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-symbol highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode csv-mode company-tern company-statistics company-auctex company-anaconda column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
