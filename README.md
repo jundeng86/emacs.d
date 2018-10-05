@@ -24,4 +24,3 @@ ln -s ~/Documents/emacs.d/.spacemacs .spacemacs
     cp $(find /usr/share/emacs -name 'eterm-color') ~/.terminfo/e/
 
     ```
-    
